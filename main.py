@@ -62,7 +62,7 @@ try:
     # Display the table
     st.table(df)
     
-    st.info(f"BMNR Market Cap: ${market_cap / 1e9:.2f}B | Price: ${bmnr_price:.2f}")
+    st.info(f"BMNR MARKET CAP: ${market_cap / 1e9:.2f}B | PRICE: ${bmnr_price:.2f}")
 
 except Exception as e:
     st.error(f"Error updating dashboard: {e}")
