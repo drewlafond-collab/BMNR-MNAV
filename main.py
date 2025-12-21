@@ -10,10 +10,11 @@ BTC_HELD = 193
 ETH_HELD = 3_967_210  
 EIGHT_STOCK_VALUE = 38_000_000
 
+# Set up the web page
 st.set_page_config(page_title="BMNR mNAV Tracker", page_icon="📈", layout="centered")
 
 refresh_rate = 60
-st.title("Bitmine (BMNR) mNAV Tracker")
+st.title("🕷️ Bitmine (BMNR) mNAV Tracker")
 st.markdown(f"**Last Updated:** {time.strftime('%H:%M:%S')}")
 
 try:
@@ -40,7 +41,6 @@ try:
     # 4. Detailed Treasury Breakdown Table
     st.subheader("Treasury Breakdown")
     
-    # Defining the data with separate columns for prices
     assets = {
         "Asset": ["Ethereum (ETH)", "Bitcoin (BTC)", "Cash", "Eightco Stake"],
         "Quantity": [f"{ETH_HELD:,}", f"{BTC_HELD:,}", "-", "-"],
@@ -49,11 +49,16 @@ try:
     }
     
     df = pd.DataFrame(assets)
-    
-    # Formatting the final value column for readability
     df["Current Value"] = df["Current Value"].map('${:,.0f}'.format)
     
-    # Use st.dataframe for a clean, interactive look
     st.dataframe(df, use_container_width=True, hide_index=True)
     
+    # Keeping this INSIDE the try block to avoid SyntaxErrors
     st.info(f"**BMNR Stats:** Price: ${bmnr_price:.2f} | Market Cap: ${market_cap / 1e9:.2f}B")
+
+except Exception as e:
+    st.error(f"Error fetching data: {e}")
+
+# 5. Auto-refresh (Outside the try block)
+time.sleep(refresh_rate)
+st.rerun()
