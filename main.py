@@ -15,7 +15,7 @@ st.set_page_config(page_title="BMNR mNAV Tracker", page_icon="📈", layout="cen
 
 refresh_rate = 60
 
-st.title("🕷️ Bitmine (BMNR) mNAV Tracker")
+st.title("Bitmine (BMNR) mNAV Tracker")
 st.markdown(f"**Last Updated:** {time.strftime('%H:%M:%S')}")
 
 try:
@@ -62,7 +62,7 @@ try:
     # Display the table
     st.table(df)
     
-    st.info(f"BMNR Market Cap: **${market_cap / 1e9:.2f}B** | Price: **${bmnr_price:.2f}**")
+    st.info(f"BMNR Market Cap: ${market_cap / 1e9:.2f}B | Price: ${bmnr_price:.2f}")
 
 except Exception as e:
     st.error(f"Error updating dashboard: {e}")
