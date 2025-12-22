@@ -2,6 +2,8 @@ import streamlit as st
 import yfinance as yf
 import pandas as pd
 import time
+from datetime import datetime
+import pytz  # For time zone conversion
 
 # --- BMNR DATA (Dec 20, 2025) ---
 SHARES = 421_500_000
@@ -14,8 +16,13 @@ EIGHT_STOCK_VALUE = 38_000_000
 st.set_page_config(page_title="BMNR mNAV Tracker", page_icon="📈", layout="centered")
 
 refresh_rate = 60
-st.title("🕷️ Bitmine (BMNR) mNAV Tracker")
-st.markdown(f"**Last Updated:** {time.strftime('%H:%M:%S')}")
+st.title("Bitmine (BMNR) mNAV Tracker")
+
+# --- FIXED TIME LOGIC (EST) ---
+# This gets the current time and forces it into Eastern Time
+est_tz = pytz.timezone('US/Eastern')
+est_time = datetime.now(est_tz).strftime('%Y-%m-%d %I:%M:%S %p')
+st.markdown(f"**Last Updated (EST):** {est_time}")
 
 try:
     # 1. Fetch live market prices
@@ -53,12 +60,11 @@ try:
     
     st.dataframe(df, use_container_width=True, hide_index=True)
     
-    # Keeping this INSIDE the try block to avoid SyntaxErrors
     st.info(f"**BMNR Stats:** Price: ${bmnr_price:.2f} | Market Cap: ${market_cap / 1e9:.2f}B")
 
 except Exception as e:
     st.error(f"Error fetching data: {e}")
 
-# 5. Auto-refresh (Outside the try block)
+# 5. Auto-refresh
 time.sleep(refresh_rate)
 st.rerun()
