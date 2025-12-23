@@ -5,12 +5,12 @@ import time
 from datetime import datetime
 import pytz  # For time zone conversion
 
-# --- BMNR DATA (Dec 20, 2025) ---
-SHARES = 421_500_000
+# --- BMNR DATA (Dec 22, 2025) ---
+SHARES = 431_344_812
 CASH = 1_000_000_000
 BTC_HELD = 193
-ETH_HELD = 3_967_210  
-EIGHT_STOCK_VALUE = 38_000_000
+ETH_HELD = 4_066_062  
+EIGHT_STOCK_VALUE = 32_000_000
 
 # Set up the web page
 st.set_page_config(page_title="BMNR mNAV Tracker", page_icon="📈", layout="centered")
